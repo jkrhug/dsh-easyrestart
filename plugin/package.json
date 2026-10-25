@@ -1,0 +1,44 @@
+{
+  "name": "dsh-easyrestart",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Adds native \"Restart\" items above Quit in DSH Desktop's tray menu and Application menu.",
+  "license": "MIT",
+  "author": "jkrhug",
+  "keywords": [
+    "dsh",
+    "deepseek-harness",
+    "dsh-plugin",
+    "electron",
+    "tray",
+    "menu",
+    "restart"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jkrhug/dsh-easyrestart.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jkrhug/dsh-easyrestart/issues"
+  },
+  "homepage": "https://github.com/jkrhug/dsh-easyrestart#readme",
+  "exports": {
+    ".": "./index.js",
+    "./locale/*.json": "./locale/*.json",
+    "./icon": "./icon.svg"
+  },
+  "files": [
+    "index.js",
+    "lib/*.js",
+    "cordis.patch.yml",
+    "locale/*.json",
+    "icon.svg",
+    "README.md",
+    "LICENSE"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Restart dsh",
+    "description": "Adds a native \u201cRestart\u201d item above Quit in both the tray icon menu and the desktop Application menu, so the whole DSH can be restarted with one click."
+  }
+}
