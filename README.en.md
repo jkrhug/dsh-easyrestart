@@ -38,21 +38,21 @@ It ships as a **DSH plugin**, so you can install/revert it from the plugin manag
 
 ## Install
 
-### Option 1: as a DSH plugin (recommended)
+### Option 1: from GitHub (recommended)
 
-1. Clone the repo:
-   ```bash
-   git clone https://github.com/jkrhug/dsh-easyrestart.git
-   ```
-2. Install the **`plugin/`** subdirectory into your profile, using DSH's own plugin manager (do not hand-edit the profile):
-   ```
-   plugin_manager  install_bundle  target = <repo path>/plugin
-   ```
-   Equivalent CLI (dsh-m):
-   ```bash
-   dshm install <repo path>/plugin
-   ```
-3. **Restart DSH Desktop.** Both menus now show a Restart item.
+```bash
+dsh plugin --profile desktop add github:jkrhug/dsh-easyrestart
+```
+
+With a local clone, install by directory instead:
+
+```bash
+dsh plugin --profile desktop add /path/to/dsh-easyrestart
+```
+
+> Use the `desktop` profile — the plugin only has a visible effect in DSH Desktop; installing it into a web profile changes nothing.
+
+**Restart DSH Desktop** afterwards, and both menus show a Restart item.
 
 Manage it any time with `/easyrestart status | install | uninstall`, the `dsh_easyrestart` agent tool, or the plugin manager UI.
 
@@ -67,7 +67,22 @@ $env:ELECTRON_NO_ASAR = "1"
 & "<Desktop install dir>\DeepSeek Harness.exe" patch/apply-menu-item.mjs --restore
 ```
 
-Both options share the same implementation (`plugin/lib/menu-patch.js`) and are idempotent.
+Both options share the same implementation (`lib/menu-patch.js`) and are idempotent.
+
+## Category and permissions
+
+- **Category**: Interface & experience
+- **Permissions**: writes `resources/app.asar` inside the DSH Desktop install directory (`EPERM` if not writable). Nothing else is written.
+- **External services**: none. No network requests, no telemetry, no data collection.
+- **Platform**: Windows desktop (Electron).
+
+## Real output
+
+```
+$ dsh_easyrestart status
+app.asar: D:\deepseek\resources\app.asar
+Menus: installed (Application menu: yes, tray menu: yes)
+```
 
 ## How it works
 
@@ -109,15 +124,18 @@ Both changes recompute and rewrite the `lib/main.js` SHA256 in the asar header (
 
 ```
 .
-├─ plugin/                  the DSH plugin (install target)
-│  ├─ index.js              registers tool dsh_easyrestart + command /easyrestart
-│  ├─ lib/menu-patch.js     patch core: locate asar, detect state, install, revert, sync SHA256
-│  ├─ cordis.patch.yml      inserts this plugin into the current profile
-│  ├─ locale/               plugin manager title (zh/en)
-│  └─ icon.svg
+├─ package.json             plugin manifest: name, version, exports, cordis.patch.yml
+├─ index.js                 host half: registers tool dsh_easyrestart + command /easyrestart
+├─ lib/menu-patch.js        patch core: locate asar, detect state, install, revert, sync SHA256
+├─ cordis.patch.yml         inserts this plugin into the current profile
+├─ locale/                  plugin manager title (zh/en)
+├─ icon.svg
+├─ docs/implementation.md   implementation notes: why app.asar, file list, behaviour
 ├─ patch/
 │  └─ apply-menu-item.mjs   CLI entry point (same implementation as the plugin)
 ├─ tools/                   read-only research helpers: extract a file from asar / search bytes
+├─ README.md / README.en.md
+├─ CONTRIBUTING.md
 └─ LICENSE
 ```
 

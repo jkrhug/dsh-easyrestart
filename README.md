@@ -39,21 +39,21 @@ DSH Desktop 目前没有「重启应用」的入口：关窗口往往只是隐�
 
 ## 安装
 
-### 方式一：作为 DSH 插件（推荐）
+### 方式一：从 GitHub 安装（推荐）
 
-1. 克隆仓库：
-   ```bash
-   git clone https://github.com/jkrhug/dsh-easyrestart.git
-   ```
-2. 把仓库里的 **`plugin/`** 子目录作为插件安装到当前 profile（用 DSH 自带的插件管理，不要手改 profile）：
-   ```
-   plugin_manager  install_bundle  target = <仓库路径>/plugin
-   ```
-   命令行等价写法（dsh-m）：
-   ```bash
-   dshm install <仓库路径>/plugin
-   ```
-3. **重启 DSH Desktop**，两个菜单里就会出现「重启」项。
+```bash
+dsh plugin --profile desktop add github:jkrhug/dsh-easyrestart
+```
+
+本机已有源码时，也可以按目录安装：
+
+```bash
+dsh plugin --profile desktop add /path/to/dsh-easyrestart
+```
+
+> 用 `desktop` profile —— 本插件只在 DSH Desktop 生效，Web profile 装了不会有可见变化。
+
+装好后 **重启 DSH Desktop**，两个菜单里就会出现「重启」项。
 
 装好后可以随时通过以下任一方式管理：
 
@@ -73,6 +73,21 @@ $env:ELECTRON_NO_ASAR = "1"
 ```
 
 `--check` 看状态，`--install` 装补丁，`--restore` 还原。两种方式共用同一份实现，可以互相接力。
+
+## 分类与权限
+
+- **能力分类**：界面与体验
+- **权限**：需要写 DSH Desktop 安装目录下的 `resources/app.asar`（权限不足会报 `EPERM`）。除此之外不写任何文件。
+- **外部服务**：无。不联网、不上报、不收集任何数据。
+- **平台**：Windows 桌面版（Electron）。
+
+## 真实输出
+
+```
+$ dsh_easyrestart status
+app.asar：D:\deepseek\resources\app.asar
+菜单项：已就位（应用菜单有，托盘菜单有）
+```
 
 ## 原理
 
@@ -114,15 +129,18 @@ $env:ELECTRON_NO_ASAR = "1"
 
 ```
 .
-├─ plugin/                  DSH 插件（安装时指向这个目录）
-│  ├─ index.js              注册工具 dsh_easyrestart 与命令 /easyrestart
-│  ├─ lib/menu-patch.js     补丁核心：定位 asar、判状态、安装、还原、同步 SHA256
-│  ├─ cordis.patch.yml      把本插件插进当前 profile
-│  ├─ locale/               插件管理页的显示名（中/英）
-│  └─ icon.svg
+├─ package.json             插件清单：包名、版本、exports、cordis.patch.yml
+├─ index.js                 Host 半：注册工具 dsh_easyrestart 与命令 /easyrestart
+├─ lib/menu-patch.js        补丁核心：定位 asar、判状态、安装、还原、同步 SHA256
+├─ cordis.patch.yml         把本插件插进当前 profile
+├─ locale/                  插件管理页的显示名（中/英）
+├─ icon.svg
+├─ docs/implementation.md   实现细节：为什么改 asar、文件清单、行为说明
 ├─ patch/
 │  └─ apply-menu-item.mjs   命令行入口（插件与脚本共用同一实现）
 ├─ tools/                   只读调研脚本：从 asar 提取文件 / 按关键词搜字节
+├─ README.md / README.en.md
+├─ CONTRIBUTING.md
 └─ LICENSE
 ```
 

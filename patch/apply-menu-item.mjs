@@ -16,7 +16,7 @@
  *   $env:ELECTRON_NO_ASAR = "1"
  *   & "<Desktop 安装目录>\DeepSeek Harness.exe" apply-menu-item.mjs --check
  */
-import { inspectMenuPatch, installMenuPatch, uninstallMenuPatch } from "../plugin/lib/menu-patch.js";
+import { inspectMenuPatch, installMenuPatch, uninstallMenuPatch } from "../lib/menu-patch.js";
 
 const mode = (process.argv[2] ?? "--install").trim();
 

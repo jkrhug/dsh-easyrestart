@@ -16,7 +16,7 @@
 
 ## 改补丁逻辑
 
-改动集中在 `plugin/lib/menu-patch.js`。修改前请注意：
+改动集中在 `lib/menu-patch.js`。修改前请注意：
 
 1. **锚点必须来自真实的 `main.js`**，不要凭印象写字符串；先用 `tools/extract-asar.js` 提取出来核对。
 2. **两种写法都要保持可逆**：托盘项走「追加 + 重定位 offset/size」，应用菜单项走「等长替换」。新增改动如果会改变长度，请沿用追加式写入（见 `writeMainJs()`），并同步 header 里的 SHA256 与 `blocks[0]`。
