@@ -101,6 +101,7 @@ Both changes recompute and rewrite the `lib/main.js` SHA256 in the asar header (
 - **DSH Desktop on Windows** (Electron). On the web build there are no native menus, so nothing is added.
 - Writing requires permission on the Desktop install directory (`resources/app.asar`); otherwise you get `EPERM`.
 - **A DSH Desktop upgrade reinstalls `app.asar`**, which removes the patch. Run `install` once after upgrading; if the anchors are missing it fails loudly instead of writing garbage.
+- Verified on DSH Desktop `0.2.1-rc.5` (Windows); earlier builds such as `0.2.1-rc.3` work as well.
 - Only the bytes above change inside `lib/main.js`; nothing is repacked, no other file is touched, and `--restore` works by reverse lookup (no backup file needed).
 - Each length-changing operation appends ~517 KB of `main.js` to the asar; repeated install/restore slowly grows the file.
 

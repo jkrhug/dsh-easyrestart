@@ -1,6 +1,6 @@
 {
   "name": "dsh-easyrestart",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "type": "module",
   "description": "Adds native \"Restart\" items above Quit in DSH Desktop's tray menu and Application menu.",
   "license": "MIT",

@@ -106,6 +106,7 @@ $env:ELECTRON_NO_ASAR = "1"
 - **DSH Desktop for Windows**（Electron）。Web 端没有这些原生菜单，装了也不会有可见变化。
 - 写入需要能修改 Desktop 安装目录（`resources/app.asar`）。权限不足时会得到 `EPERM`。
 - **DSH Desktop 升级会重装 `app.asar`**，补丁随之消失；升级后重跑一次 `install` 即可。锚点找不到时会明确报错，不会乱写。
+- 已在 DSH Desktop `0.2.1-rc.5`（Windows）上验证通过；`0.2.1-rc.3`（含）以前也适用。
 - 只改 `lib/main.js` 的上述字节，不重打包、不动其他文件；`--restore` 是反向定位，不依赖备份。
 - 每次内容长度变化都会往 asar 末尾追加一份 `main.js`（约 517 KB），反复安装/还原会让文件缓慢变大。
 
