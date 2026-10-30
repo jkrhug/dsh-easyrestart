@@ -5,6 +5,9 @@
 >
 > [English](README.en.md) · [MIT](LICENSE)
 
+[![npm version](https://img.shields.io/npm/v/dsh-easyrestart.svg)](https://www.npmjs.com/package/dsh-easyrestart)
+[![license](https://img.shields.io/npm/l/dsh-easyrestart.svg)](LICENSE)
+
 托盘图标右键：
 
 ```

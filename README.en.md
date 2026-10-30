@@ -4,6 +4,9 @@
 >
 > [中文](README.md) · [MIT](LICENSE)
 
+[![npm version](https://img.shields.io/npm/v/dsh-easyrestart.svg)](https://www.npmjs.com/package/dsh-easyrestart)
+[![license](https://img.shields.io/npm/l/dsh-easyrestart.svg)](LICENSE)
+
 Tray icon, right click:
 
 ```
