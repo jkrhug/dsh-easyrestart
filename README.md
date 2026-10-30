@@ -39,7 +39,13 @@ DSH Desktop 目前没有「重启应用」的入口：关窗口往往只是隐�
 
 ## 安装
 
-### 方式一：从 GitHub 安装（推荐）
+### 方式一：从 npm 安装（推荐）
+
+```bash
+dsh plugin --profile desktop add dsh-easyrestart
+```
+
+也可以直接从 GitHub 源码安装（不必等 npm）：
 
 ```bash
 dsh plugin --profile desktop add github:jkrhug/dsh-easyrestart

@@ -38,7 +38,13 @@ It ships as a **DSH plugin**, so you can install/revert it from the plugin manag
 
 ## Install
 
-### Option 1: from GitHub (recommended)
+### Option 1: from npm (recommended)
+
+```bash
+dsh plugin --profile desktop add dsh-easyrestart
+```
+
+Or straight from the GitHub source (no need to wait for npm):
 
 ```bash
 dsh plugin --profile desktop add github:jkrhug/dsh-easyrestart
